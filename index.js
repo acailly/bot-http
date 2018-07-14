@@ -1,5 +1,6 @@
 const http = require("http");
 const url = require("url");
+const fs = require("fs");
 
 module.exports = function(vorpal) {
   vorpal
@@ -24,8 +25,9 @@ module.exports = function(vorpal) {
             answer(body, res);
           });
         } else {
-          const body = "Set command in URL. Example: ?command=say hello";
-          answer(body, res);
+          const indexPage = fs.readFileSync(__dirname + "/index.html");
+          res.writeHead(200, { "Content-Type": "text/html" });
+          res.end(indexPage, "utf-8");
         }
       });
       server.listen(port);

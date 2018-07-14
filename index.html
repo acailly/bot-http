@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>🤖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<script>
+  function handleSubmit() {
+    //Get the input value
+    const commandInput = document.form_command.input_command
+    const command = commandInput.value
+
+    //Clear the input 
+    commandInput.value = ''
+
+    //Show a waiting message
+    const resultContent = document.getElementById("result")
+    resultContent.textContent = "..."
+
+    //Send command to the bot
+    fetch('?command=' + command)
+      .then(response => response.text())
+      .then(text => {
+        //Show result
+        resultContent.textContent = text
+      })
+    return false
+  }
+</script>
+
+<body>
+  <form name="form_command" onsubmit="return handleSubmit()">
+    🤖
+    <input name="input_command" type="text"></input>
+  </form>
+  <pre id="result">Type 'help' for usage information</pre>
+</body>
+
+</html>
